@@ -8,6 +8,8 @@ import { Matrix2x2 } from "@/components/slide-blocks/matrix"
 import { IconStatGrid } from "@/components/slide-blocks/icon-stat-grid"
 import { BeforeAfterSplit } from "@/components/slide-blocks/before-after"
 import { Users, DollarSign, Activity, Zap } from "lucide-react"
+import Petals from "@/components/slide-blocks/petals"
+import Funnel2 from "@/components/slide-blocks/funnel2"
 
 export default function Home() {
     return (
@@ -21,6 +23,37 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                <section className="space-y-4 flex flex-col">
+                    <h2 className="text-xl font-bold text-slate-400 uppercase tracking-widest">01. Petals</h2>
+                    <div className="bg-white p-6 rounded-xl shadow-sm border flex-1 flex items-center justify-center min-h-[300px]">
+                        <Petals
+                            items={[
+                                { title: "Analysis", content: "Lorem ipsum dolor sit amet, consectetur." },
+                                { title: "Design", content: "Quisque et faucibus magna nunc at leo." },
+                                { title: "Develop", content: "Nunc at leo et nisi sollicitudin aliquet." },
+                                { title: "Testing", content: "Donec sed odio dui. Nullal vitae elit libero." },
+                                { title: "Deploy", content: "Cras mattis consectetur purus sit amet." },
+                                { title: "Maintain", content: "Aenean lacinia bibendum nulla sed consectetur." },
+                            ]}
+                        />
+                    </div>
+                </section>
+                <section className="space-y-4 flex flex-col">
+                    <h2 className="text-xl font-bold text-slate-400 uppercase tracking-widest">02. Funnel</h2>
+                    <div className="bg-white p-6 rounded-xl shadow-sm border flex-1 flex items-center justify-center min-h-[300px]">
+                        <Funnel2
+                            width={1024}
+                            height={768}
+                            levels={[
+                                "Awareness",
+                                "Interest",
+                                "Consideration",
+                                "Evaluation",
+                                "Purchase",
+                            ]}
+                        />
+                    </div>
+                </section>
                 {/* COMPONENT 1: FUNNEL */}
                 <section className="space-y-4 flex flex-col">
                     <h2 className="text-xl font-bold text-slate-400 uppercase tracking-widest">01. Funnel</h2>
