@@ -34,9 +34,11 @@ export function ProcessFlow({ steps, className }: ProcessFlowProps) {
 
                     return (
                         <motion.div
+                            layout
                             key={step.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ delay: index * 0.15 }}
                             className="flex-1 flex flex-col items-center text-center relative"
                         >

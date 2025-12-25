@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from "framer-motion"
 
 const COLORS = [
     '#c44a56', // Red
@@ -34,10 +35,10 @@ const Petals = ({
     // --- MATH HELPERS ---
 
     // Converts degrees to radians
-    const toRad = (deg) => (deg * Math.PI) / 180;
+    const toRad = (deg: number) => (deg * Math.PI) / 180;
 
     // Calculates x,y coordinates based on center, radius, and angle (degrees)
-    const getPoint = (radius, angleInDegrees) => {
+    const getPoint = (radius: number, angleInDegrees: number) => {
         // -90 rotates it so 0 degrees is at 12 o'clock
         const angleInRad = toRad(angleInDegrees - 90);
         return {
@@ -47,7 +48,7 @@ const Petals = ({
     };
 
     // Generates the SVG path for a donut slice
-    const createSectorPath = (index) => {
+    const createSectorPath = (index: number) => {
         // Calculate angles
         const startAngle = (index * anglePerStep) + (gap / 2);
         const endAngle = ((index + 1) * anglePerStep) - (gap / 2);
@@ -103,7 +104,7 @@ const Petals = ({
                 {/* Center White Circle */}
                 <circle cx={cx} cy={cy} r={innerRadius - 5} fill="#fff" filter="url(#dropShadow)" />
 
-                {items.map((item, index) => {
+                {items.map((item: any, index: number) => {
                     const midAngle = (index * anglePerStep) + (anglePerStep / 2);
                     const color = COLORS[index % COLORS.length];
 
@@ -115,19 +116,25 @@ const Petals = ({
                     const bubblePos = getPoint(outerRadius, midAngle);
 
                     return (
-                        <g key={index}>
+                        <motion.g
+                            key={index}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5 }}
+                        >
                             {/* SLICE SHAPE */}
-                            <path
+                            <motion.path
                                 d={createSectorPath(index)}
                                 fill={color}
                                 stroke="#fff"
                                 strokeWidth="3"
-                                style={{ transition: 'all 0.3s ease', cursor: 'pointer' }}
-                                onMouseEnter={(e) => {
+                                animate={{ d: createSectorPath(index) }} // Animate the path change
+                                style={{ transition: 'fill 0.3s ease', cursor: 'pointer' }}
+                                onMouseEnter={(e: any) => {
                                     e.currentTarget.style.transform = 'scale(1.02)';
                                     e.currentTarget.style.transformOrigin = `${cx}px ${cy}px`;
                                 }}
-                                onMouseLeave={(e) => {
+                                onMouseLeave={(e: any) => {
                                     e.currentTarget.style.transform = 'scale(1)';
                                 }}
                             />
@@ -141,17 +148,19 @@ const Petals = ({
                                 height="80"
                                 style={{ pointerEvents: 'none' }}
                             >
-                                <div style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    color: 'white',
-                                    textShadow: '0 1px 2px rgba(0,0,0,0.2)'
-                                }}>
+                                <motion.div
+                                    animate={{ opacity: 1 }}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        textAlign: 'center',
+                                        color: 'white',
+                                        textShadow: '0 1px 2px rgba(0,0,0,0.2)'
+                                    }}>
                                     <div style={{ fontWeight: 'bold', fontSize: '11px', textTransform: 'uppercase', marginBottom: '4px' }}>
                                         {item.title}
                                     </div>
@@ -159,12 +168,14 @@ const Petals = ({
                                     <div style={{ fontSize: '9px', lineHeight: '1.2' }}>
                                         {item.content}
                                     </div>
-                                </div>
+                                </motion.div>
                             </foreignObject>
 
                             {/* NUMBER BUBBLE */}
-                            <g transform={`translate(${bubblePos.x}, ${bubblePos.y})`}>
-                                <circle r="16" fill={color} stroke="#fff" strokeWidth="2" />
+                            <motion.g
+                                animate={{ x: bubblePos.x, y: bubblePos.y }} // Animate position
+                            >
+                                <circle r="16" fill={color} stroke="#fff" strokeWidth="2" cx={0} cy={0} /> {/* Use local 0,0 and translate parent */}
                                 <text
                                     x="0"
                                     y="5"
@@ -175,8 +186,8 @@ const Petals = ({
                                 >
                                     {String(index + 1).padStart(2, '0')}
                                 </text>
-                            </g>
-                        </g>
+                            </motion.g>
+                        </motion.g>
                     );
                 })}
             </svg>

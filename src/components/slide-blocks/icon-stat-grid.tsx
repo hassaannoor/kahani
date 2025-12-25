@@ -31,9 +31,11 @@ export function IconStatGrid({ stats, columns = 3, className }: IconStatGridProp
         >
             {stats.map((stat, i) => (
                 <motion.div
+                    layout
                     key={stat.id}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
                     transition={{ delay: i * 0.05 }}
                     className="bg-card text-card-foreground p-6 rounded-xl border shadow-sm hover:shadow-md transition-all flex flex-col items-start"
                 >

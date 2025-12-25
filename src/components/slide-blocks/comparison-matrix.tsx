@@ -41,9 +41,14 @@ export function ComparisonMatrix({ features, columns, className }: ComparisonMat
                 <tbody>
                     {features.map((feature, rowIndex) => (
                         <motion.tr
-                            key={rowIndex}
+                            layout
+                            key={feature} // Assuming feature name is unique. If not, index is bad for layout animations.
+                            // Note: The caller page should ensure stability. If we reduce features, rowIndex changes for others? No, map order.
+                            // Ideally we need a unique ID for features, but the interface takes string[].
+                            // unique string is fine.
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
                             transition={{ delay: rowIndex * 0.05 }}
                             className="border-t border-border/50 hover:bg-muted/5 transition-colors"
                         >

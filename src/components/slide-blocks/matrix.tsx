@@ -61,9 +61,11 @@ export function Matrix2x2({ items, axes, className, quadrantLabels }: MatrixProp
             <div className="absolute inset-10">
                 {items.map((item, i) => (
                     <motion.div
+                        layout
                         key={item.id}
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
                         transition={{ delay: i * 0.1, type: "spring" }}
                         className={cn(
                             "absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center group cursor-pointer",

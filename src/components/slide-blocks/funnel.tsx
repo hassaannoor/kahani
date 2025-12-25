@@ -60,9 +60,11 @@ export function Funnel({
 
                     return (
                         <motion.div
+                            layout // Enable layout animations
                             key={item.id}
                             initial={{ opacity: 0, y: orientation === "vertical" ? 20 : 0, x: orientation === "horizontal" ? -20 : 0 }}
                             animate={{ opacity: 1, y: 0, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.9 }} // Add exit animation support
                             transition={{ delay: index * 0.1 }}
                             className="relative flex-1 group"
                         >

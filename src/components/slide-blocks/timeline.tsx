@@ -28,9 +28,11 @@ export function Timeline({ items, layout = "horizontal", className }: TimelinePr
                 <div className="flex justify-between items-start gap-4">
                     {items.map((item, index) => (
                         <motion.div
+                            layout
                             key={item.id}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
                             transition={{ delay: index * 0.1 }}
                             className="relative flex flex-col items-center text-center flex-1"
                         >
